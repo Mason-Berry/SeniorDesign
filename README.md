@@ -8,13 +8,12 @@ This repository contains **ForecastTX**, a comprehensive weather forecasting and
 
 ## My Contributions
 
-As part of the development team, my primary contributions included:
+As part of the development team, my primary responsibilities focused on **data acquisition, transformation, storage in Google Cloud, and preparation for model training**. My specific contributions included:
 
 - **Data Processing Pipeline**: Development and optimization of Python scripts for processing ERA5 weather data
-- **Machine Learning Models**: Implementation and training of ConvLSTM neural networks for weather prediction
-- **Backend API Development**: FastAPI server development for data serving and analysis endpoints
-- **Frontend Development**: React component development for the interactive dashboard
+- **Data Acquisition & Transformation**: Implementation of automated systems for acquiring, cleaning, and transforming raw weather data
 - **Cloud Infrastructure**: Google Cloud Platform integration and deployment configuration
+- **Model Training Preparation**: Data preprocessing, feature engineering, and preparation of training datasets for machine learning models
 
 ## Project Purpose & Technical Scope
 
@@ -103,6 +102,10 @@ This repository serves as a portfolio piece demonstrating:
 - **Data Science**: Real-world application of ML to climate/weather data
 - **Cloud Computing**: Production deployment of scalable web applications
 - **Team Development**: Collaborative software development practices
+
+## Additional Resources
+
+For more information about this project, including a demo video and additional technical details, visit the [official school blog post](https://websites.uta.edu/cseseniordesign/2025/08/04/forecast-tx/).
 
 ---
 
