@@ -13,7 +13,7 @@ As part of the development team, my primary responsibilities focused on **data a
 - **Data Processing Pipeline**: Development and optimization of Python scripts for processing ERA5 weather data
 - **Data Acquisition & Transformation**: Implementation of automated systems for acquiring, cleaning, and transforming raw weather data
 - **Cloud Infrastructure**: Google Cloud Platform integration and deployment configuration
-- **Model Training Preparation**: Data preprocessing, feature engineering, and preparation of training datasets for machine learning models
+
 
 ## Project Purpose & Technical Scope
 
