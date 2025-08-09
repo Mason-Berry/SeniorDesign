@@ -66,10 +66,10 @@ This project showcases several key competencies valuable in professional softwar
 
 ## Academic Context
 
-**Institution**: The University of Texas at Dallas  
+**Institution**: The University of Texas at Arlington  
 **Course**: Senior Capstone Project  
 **Duration**: Academic Year 2024-2025  
-**Team Size**: 4-5 students  
+**Team Size**: 5 students  
 **Industry Partner**: State Farm Insurance (project sponsor)
 
 The project was developed in collaboration with State Farm to explore applications of machine learning in weather risk assessment and prediction.
