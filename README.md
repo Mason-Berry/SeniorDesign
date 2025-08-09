@@ -122,3 +122,21 @@ The project was sponsored by **State Farm** to explore the application of machin
 │ └── docs/ # Documentation
 
 ---
+
+## 📄 Documentation
+
+See `/app-main/docs/` for:
+- System architecture & design decisions
+- Setup & deployment guides
+- API documentation
+- ML model specifications
+
+---
+
+## 📺 Additional Resources
+
+- **School Blog Post**: [Official Capstone Project Page](https://websites.uta.edu/cseseniordesign/2025/08/04/forecast-tx/)
+
+---
+
+*This repository is presented for educational and professional demonstration purposes, reflecting both my technical skills and my ability to collaborate effectively on complex software projects.*
