@@ -1,0 +1,231 @@
+.container {
+  position: relative;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: auto; /* Adjust height automatically based on content */
+  min-height: 300px; /* Minimum height for responsiveness */
+  max-height: 600px; /* Maximum height for larger screens */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: box-shadow 0.3s ease;
+  overflow: hidden; /* Prevent overflow in case content exceeds max height */
+}
+
+.container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.248);
+}
+
+.exportContainer {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.exportButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #666;
+}
+
+.exportButton:hover {
+  background-color: rgba(135, 206, 250, 0.2);
+  color: #2c3e50;
+  transform: scale(1.1);
+}
+
+.exportMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: 140px;
+  z-index: 1000;
+}
+
+.exportOption {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.exportOption:hover {
+  background-color: rgba(135, 206, 250, 0.1);
+  color: #2c3e50;
+}
+
+.exportOption:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.container h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #222;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+  padding-right: 50px; /* Add space for export button */
+}
+
+.container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto; /* Scrollable content */
+}
+
+.container li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  color: #444;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container li:last-child {
+  border-bottom: none;
+}
+
+.container li strong {
+  color: #000;
+}
+
+/* Optional scrollbar customization */
+.container ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.container ul::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.table th:first-child {
+  border-top-left-radius: 15px;
+}
+
+.table th:last-child {
+  border-top-right-radius: 15px;
+}
+
+.table th {
+  background-color: #000000;
+  font-weight: bold;
+  color: #fff;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Small screens (≤ 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem; /* Reduce padding for small screens */
+    min-height: 250px; /* Smaller min-height for smaller screens */
+  }
+  
+  .exportContainer {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .exportButton {
+    padding: 6px;
+  }
+  
+  .exportMenu {
+    min-width: 120px;
+  }
+  
+  .exportOption {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .container h3 {
+    font-size: 1.2rem; /* Smaller font size for headings */
+    padding-right: 45px; /* Adjust space for smaller export button */
+  }
+  
+  .container li {
+    font-size: 0.9rem; /* Adjust list item font size */
+    padding: 0.5rem 0; /* Reduce padding for smaller screens */
+  }
+}
+
+/* Medium screens (768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    padding: 1.25rem; /* Moderate padding for medium screens */
+    min-height: 350px; /* Slightly larger min-height for medium screens */
+  }
+  
+  .container h3 {
+    font-size: 1.3rem; /* Adjust heading size */
+    padding-right: 48px; /* Adjust space for export button */
+  }
+  
+  .container li {
+    font-size: 0.95rem; /* Adjust list item font size */
+    padding: 0.55rem 0; /* Slightly reduced padding */
+  }
+}
+
+/* Large screens (≥ 1200px) */
+@media (min-width: 1200px) {
+  .container {
+    padding: 1.5rem; /* Larger padding for desktop screens */
+    min-height: 400px; /* Adjust min-height for larger screens */
+  }
+  
+  .container h3 {
+    font-size: 1.4rem; /* Default heading size */
+    padding-right: 50px; /* Default space for export button */
+  }
+  
+  .container li {
+    font-size: 1rem; /* Default list item font size */
+    padding: 0.6rem 0; /* Default padding */
+  }
+}

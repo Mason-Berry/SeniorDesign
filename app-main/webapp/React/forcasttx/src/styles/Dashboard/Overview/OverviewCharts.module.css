@@ -1,0 +1,7 @@
+.charts {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;  /* Ensures responsiveness on smaller screens */
+}

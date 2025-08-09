@@ -1,0 +1,26 @@
+.Headder {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  
+}
+
+
+
+.mapOnlyLayout {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+
+.mapWrapper {
+  flex: 1 1 auto;
+  overflow: hidden;
+}

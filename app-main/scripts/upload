@@ -1,0 +1,36 @@
+#!/bin/bash
+# scripts/upload
+# Auto-detect and upload all processed files to GCS
+
+set -e  # exit on first error
+shopt -s nullglob  # avoid errors if no files match
+
+BUCKET_NAME="forecasttx-era5-data-bucket"
+DEST_ROOT="processed"
+SOURCE_DIR="pipeline_output/joined"
+
+echo "📂 Scanning $SOURCE_DIR for .csv files to upload..."
+
+CSV_FILES=("$SOURCE_DIR"/*/*.csv)
+
+if [ ${#CSV_FILES[@]} -eq 0 ]; then
+    echo "❌ No CSV files found in $SOURCE_DIR"
+    exit 1
+fi
+
+for FILE in "${CSV_FILES[@]}"; do
+    BASENAME=$(basename "$FILE")  # e.g., joined_202003.csv
+    YEAR_MONTH=$(echo "$BASENAME" | grep -oP '\d{6}')  # Extract YYYYMM
+    YEAR=${YEAR_MONTH:0:4}
+
+    if [[ -z "$YEAR_MONTH" || -z "$YEAR" ]]; then
+        echo "⚠️ Skipping $FILE: could not extract year/month"
+        continue
+    fi
+
+    DEST_PATH="gs://$BUCKET_NAME/$DEST_ROOT/$YEAR/$BASENAME"
+    echo "📤 Uploading $FILE to $DEST_PATH"
+    gsutil cp "$FILE" "$DEST_PATH"
+done
+
+echo "✅ Upload complete for all detected files."

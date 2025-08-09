@@ -1,0 +1,39 @@
+# .github/workflows/ml_ops_pipeline.yml
+
+name: Run Full ML Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      variable: { description: 'ERA5 Variable', required: true, default: 'temperature' }
+      start_date: { description: 'Start date', required: true, default: '2024-01-01' }
+      end_date: { description: 'End date', required: true, default: '2024-01-31' }
+
+jobs:
+  fetch_data:
+    uses: ./.github/workflows/fetch_data.yml
+    with:
+      variable: ${{ inputs.variable }}
+      start_date: ${{ inputs.start_date }}
+      end_date: ${{ inputs.end_date }}
+    secrets: inherit
+
+  train_model:
+    needs: fetch_data
+    uses: ./.github/workflows/train_model.yml
+    secrets: inherit
+
+  store_model_output:
+    needs: train_model
+    uses: ./.github/workflows/store_output.yml
+    secrets: inherit
+
+  update_db:
+    needs: store_model_output
+    uses: ./.github/workflows/update_db.yml
+    secrets: inherit
+
+  update_ui:
+    needs: update_db
+    uses: ./.github/workflows/update_ui.yml
+    secrets: inherit

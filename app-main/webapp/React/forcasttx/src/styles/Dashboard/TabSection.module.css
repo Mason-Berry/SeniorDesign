@@ -1,0 +1,46 @@
+.tab-section {
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  background: none;
+  display: flex;
+  justify-content: center; /* Align tab row to the left */
+}
+
+.tabs {
+  display: flex;
+  gap: 200px; 
+  margin: 50px;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Adjusted to make buttons square */
+  font-size: 24px;
+  font-weight:bold;
+  border: none; /* Removed border */
+  border-radius: 0; /* Squared buttons */
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  text-transform: uppercase; /* Capitalize text for modern look */
+  transition: background-color 0.2s ease, color 0.2s ease, border-bottom 0.2s ease;
+}
+
+.tab-btn:hover {
+  background-color: #f0f0f0; /* Adds hover effect */
+  color: #D12D35; /* Change color on hover */
+  text-decoration: underline; /* Optional: Underline text on hover */
+}
+
+.tab-btn.active {
+  border-bottom: 2px solid #D12D35; /* Active tab's bottom border */
+  color: #D12D35; /* Active tab's text color */
+  font-weight: bold; /* Bold text for the active tab */
+}
+
+.tab-icon {
+  font-size: 18px;
+  margin: 10px;
+}

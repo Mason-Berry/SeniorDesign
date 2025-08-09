@@ -1,0 +1,85 @@
+{
+  "name": "forcasttx",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@turf/boolean-point-in-polygon": "^7.2.0",
+    "@turf/helpers": "^7.2.0",
+    "@turf/turf": "^7.2.0",
+    "@types/d3": "^7.4.3",
+    "bootstrap": "^5.3.6",
+    "chart.js": "^4.4.8",
+    "chartjs-chart-geo": "^4.3.4",
+    "d3": "^7.9.0",
+    "d3-geo": "^3.1.1",
+    "firebase": "^11.6.1",
+    "html-docx-js": "^0.3.1",
+    "html2canvas": "^1.4.1",
+    "jquery": "^3.7.1",
+    "jspdf": "^3.0.1",
+    "leaflet": "^1.9.4",
+    "leaflet-environmental-layers": "^2.4.9",
+    "leaflet-fullscreen": "^1.0.2",
+    "leaflet-openweathermap": "^1.0.0",
+    "leaflet-polylinedecorator": "^1.6.0",
+    "leaflet-timedimension": "^1.1.1",
+    "leaflet-velocity": "^2.1.4",
+    "leaflet.heat": "^0.2.0",
+    "lucide-react": "^0.510.0",
+    "openai": "^4.91.1",
+    "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0",
+    "react-router-dom": "^7.3.0",
+    "react-scripts": "5.0.1",
+    "topojson": "^3.0.2",
+    "web-vitals": "^2.1.4",
+    "webfontloader": "^1.6.28"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.27.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8.56.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.14"
+  },
+  "description": "## Overview This is a React-based authentication and landing page for ForecastTX. The app includes a login page, a landing page with a redirect, and an email authorization check for account creation.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

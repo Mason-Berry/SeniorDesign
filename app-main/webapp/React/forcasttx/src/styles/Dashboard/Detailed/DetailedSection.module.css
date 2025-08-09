@@ -1,0 +1,16 @@
+.detailedContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    gap: 0;
+  }
+
+.detailedLayout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+    grid-template-rows: repeat(3, auto); /* 3 rows */
+    gap: 20px; /* Space between grid items */
+    padding: 20px;
+  }

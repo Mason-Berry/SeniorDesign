@@ -1,0 +1,21 @@
+# .github/workflows/update_db.yml
+on:
+  workflow_call:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install psycopg2
+        run: pip install psycopg2-binary
+
+      - name: Update DB
+        run: |
+          python update_postgres.py
+        env:
+          DB_URL: ${{ secrets.POSTGRES_URL }}

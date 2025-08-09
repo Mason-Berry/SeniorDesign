@@ -1,0 +1,48 @@
+/* SeasonSelect.module.css */
+
+.seasonBox {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin: auto;
+  }
+  
+  .seasonBox h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .seasonDropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 2px solid #e2231a;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .seasonDropdown:hover {
+    border-color: #9f3d3d;
+  }
+  
+  .seasonDropdown:focus {
+    outline: none;
+    border-color: #9f3d3d;
+    box-shadow: 0 0 5px rgba(226, 35, 26, 0.5);
+  }
+  
+  .seasonBox p {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: bold;
+  }
+  

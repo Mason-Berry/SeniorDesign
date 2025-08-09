@@ -1,0 +1,60 @@
+.PastVsAiContainer {
+  position: relative;
+  width: 600px;
+  min-height: 700px; /* Use min-height instead */
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+  padding: 20px;
+  color: black;
+  flex-wrap: wrap; /* Allow children to wrap if needed */
+  overflow: hidden; /* Prevent accidental overflow */
+}
+.PastVsAiContainer:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.248);
+}
+
+.PastVsAiContainer svg {
+  width: 100%;
+  height: auto;
+}
+
+/* D3 Text Styles */
+svg text {
+  font-family: sans-serif;
+  fill: #333;
+}
+
+svg .text-sm {
+  font-size: 12px;
+}
+
+svg .text-xs {
+  font-size: 10px;
+}
+
+svg .font-medium {
+  font-weight: 500;
+}
+
+svg .font-bold {
+  font-weight: bold;
+}
+
+/* Tooltip Styling */
+svg .tooltip {
+  font-size: 12px;
+  fill: #111;
+}
+
+/* Dots hover effect (optional, animated scaling) */
+.past-dot,
+.ai-dot {
+  transition: r 0.2s ease-in-out;
+}

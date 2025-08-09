@@ -1,0 +1,35 @@
+.filterRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Optional: wraps on smaller screens */
+  padding: 10px;
+}
+
+/* Style for Reset Button */
+.resetButton {
+  background-color: #ff4d4d; /* Red color for attention */
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem; /* Add some padding for better clickability */
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+  align-self: flex-start; /* Align the button to the left within the filter row */
+}
+
+.resetButton:hover {
+  background-color: #e60000; /* Darker red on hover */
+  transform: scale(1.05); /* Slightly grow on hover */
+}
+
+.resetButton:focus {
+  outline: none; /* Remove default outline when button is focused */
+  box-shadow: 0 0 3px 2px rgba(255, 77, 77, 0.6); /* Custom focus effect */
+}
+
+.resetButton:active {
+  background-color: #cc0000; /* Darker red when button is clicked */
+}

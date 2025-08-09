@@ -1,0 +1,20 @@
+name: weather_project
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - xarray=2025.3.0
+  - pandas
+  - numpy
+  - cfgrib
+  - eccodes
+  - netCDF4
+  - matplotlib
+  - requests
+  - pip
+  - pip:
+      - cdsapi
+      - dask
+      - pyarrow
+      - scikit-learn

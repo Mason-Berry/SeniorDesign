@@ -1,0 +1,316 @@
+====================================SETUP=======================================
+activate virtual environment and install following reqs
+this section alone was enough. Worked for me:
+
+pip install xarray          # For handling multidimensional data
+pip install cfgrib          # Engine for reading GRIB files
+pip install eccodes         # Backend library for cfgrib
+pip install pandas          # For data manipulation
+pip install numpy           # For numerical operations
+pip install pyarrow         # For Parquet file support
+pip install google-cloud-storage  # For Google Cloud Storage operations
+pip install gcsfs           # For filesystems interface with GCS
+pip install matplotlib      # For plotting (if needed)
+pip install dask            # For parallel computing (helps with large files)
+pip install netCDF4         # Often needed with xarray
+pip install zarr            # For zarr format support (optional alternative)
+
+
+possibly on ubuntu:
+sudo apt-get update
+sudo apt-get install libeccodes-dev
+
+posibly if memory constraints:
+pip install dask[complete]  # Enhanced parallel processing
+pip install h5netcdf        # Alternative format support
+
+============================================PROCESSING PIPELINE SCRIPT===============================
+
+The pipeline script could use some significant fixes and optimizations, but when using a single worker it is able to get the job done somewhat slowly.
+Seeing as it only needs to be used once (as far as I can tell) We can begin using it now rather than spending time optimizing so that we can get data ML ready.
+
+Optimizations needed or missing:
+fix multi threading concurency control so you can use addition "workers"
+update the ORGANIZED CONVERTER script to use higher amounts of memory resources to increase speed (possibly by raising chunk sizes)
+perform proper sorting using the script
+output quality/correctness verification phase
+automatically store output to cloud
+
+# Usage Example
+bashpython era5-processing-pipeline.py \
+  --grib-dir /path/to/grib/files \
+  --output-dir /path/to/output \
+  --converter-script /path/to/era5-organized-converter.py \
+  --joiner-script /path/to/era5-data-joiner.py \
+  --start-year 1960 \
+  --end-year 1970 \
+  --decimal-precision 4 \
+  --parquet \
+  --output-format parquet \
+  --chunk-size 10000 \
+  --max-memory-rows 30000 \
+  --batch-size 12 \
+  --max-workers 2
+
+# Command-Line Options
+# Required Arguments
+--grib-dir: Directory containing GRIB files
+--output-dir: Base directory for output data
+--converter-script: Path to ERA5 converter script
+--joiner-script: Path to ERA5 joiner script
+
+# Year Range Filters
+--start-year: First year to process
+--end-year: Last year to process
+
+# Conversion Options
+--variables: Space-separated list of variables to extract
+--exclude-variables: Space-separated list of variables to exclude (default: 10fg, cbh, cin, cp, i10fg, lsp, tp, vimd)
+--decimal-precision: Number of decimal places for lat/long coordinates (default: 4)
+--compress: Compression format for CSV files (gzip, bz2, zip, xz)
+
+# Join Options
+--chunk-size: Processing chunk size for joiner (default: 10000)
+--max-memory-rows: Maximum rows to keep in memory for joiner (default: 30000)
+
+# Output Options
+--output-format: Format for joined data (csv or parquet, default: parquet)
+--parquet: Convert processed files to Parquet
+--remove-csv: Remove CSV files after Parquet conversion
+
+# Processing Options
+--keep-processed: Keep intermediate processed data after joining
+--max-workers: Maximum number of concurrent processes
+--batch-size: Number of months to process in each batch (default: 10)
+--batch-delay: Delay in seconds between batches (default: 0)
+
+# This is the command I have been using to run the script (probably need to remove line breaks if copy and pasting)
+python3 scripts/era5-processing-pipeline.py   --grib-dir ../projects/weatherGetterFresh/data/   --output-dir processed/joined_data_1960
+   --converter-script scripts/era5-organized-converter.py   --joiner-script scripts/era5-data-joiner.py   --start-year 1969   --end-year 1969
+      --decimal-precision 4   --output-format csv   --chunk-size 40000   --max-memory-rows 200000   --batch-size 12   --max-workers 1
+
+============================================ORGANIZED CONVERTER=====================================
+usage: era5-organized-converter.py [-h] --input INPUT --output OUTPUT
+                                  [--variables VARIABLES [VARIABLES ...]]
+                                  [--exclude-variables EXCLUDE_VARIABLES [EXCLUDE_VARIABLES ...]]
+                                  [--compress {gzip,bz2,zip,xz}]
+                                  [--chunk CHUNK] [--keep-constants]
+                                  [--parquet] [--remove-csv]
+                                  [--decimal-precision DECIMAL_PRECISION]
+
+Convert ERA5 GRIB file to CSV/Parquet files with organized directory structure
+
+required arguments:
+  --input INPUT          Input GRIB file
+  --output OUTPUT        Output base directory
+
+optional arguments:
+  -h, --help            Show this help message and exit
+  --variables VARIABLES [VARIABLES ...]
+                        Variables to extract (space-separated)
+  --exclude-variables EXCLUDE_VARIABLES [EXCLUDE_VARIABLES ...]
+                        Variables to exclude from processing (space-separated)
+  --compress {gzip,bz2,zip,xz}
+                        Compress CSV files
+  --chunk CHUNK         Time chunk size (hours) (default: 24)
+  --keep-constants      Keep constant columns like number, step, surface
+  --parquet             Convert to Parquet format after CSV creation
+  --remove-csv          Remove CSV files after Parquet conversion
+  --decimal-precision DECIMAL_PRECISION
+                        Number of decimal places to keep for latitude/longitude coordinates
+
+Argument Descriptions:
+
+--input (required): Path to the input GRIB file to process
+--output (required): Directory where processed data will be stored
+--variables: List of specific variables to extract (if not specified, all variables are processed)
+--exclude-variables: List of variables to exclude from processing
+--compress: Compression format for CSV files (options: gzip, bz2, zip, xz)
+--chunk: Number of time steps to process in each chunk (default: 24 hours)
+--keep-constants: Keep columns with constant values (by default these are removed)
+--parquet: Convert CSV files to Parquet format after creation
+--remove-csv: Delete original CSV files after conversion to Parquet
+--decimal-precision: Number of decimal places to keep for lat/lon coordinates
+
+# Basic usage - process all variables
+python era5-organized-converter.py --input data.grib --output ./output_dir
+
+# Process only specific variables
+python era5-organized-converter.py --input data.grib --output ./output_dir --variables 2t 10u 10v
+
+# Process all variables except specific ones
+python era5-organized-converter.py --input data.grib --output ./output_dir --exclude-variables sp tp
+
+# Round coordinates to 5 decimal places
+python era5-organized-converter.py --input data.grib --output ./output_dir --decimal-precision 5
+
+# Full processing with Parquet conversion
+python era5-organized-converter.py --input data.grib --output ./output_dir --decimal-precision 4 --chunk 12 --compress gzip --parquet --remove-csv
+
+Variables (to include or exclude):
+2d
+2t
+10fg
+10u
+10v
+100u
+100v
+cape
+cbh
+cin
+cp
+hcc
+i10fg
+lcc
+lsp
+mcc
+sp
+tcc
+tciw
+tclw
+tp
+fike
+vimd
+vit
+vitoe
+
+=================================DATA JOINER====================================================
+usage: era5-data-joiner-compatible.py [-h] --input INPUT --output OUTPUT
+                                      [--year YEAR] [--month MONTH]
+                                      [--exclude-vars EXCLUDE_VARS [EXCLUDE_VARS ...]]
+                                      [--include-vars INCLUDE_VARS [INCLUDE_VARS ...]]
+                                      [--chunk-size CHUNK_SIZE]
+                                      [--max-memory-rows MAX_MEMORY_ROWS]
+
+Join ERA5 data from multiple CSV/Parquet files
+
+Expected file structure:
+<input dir>/
+├── <year>/
+│   └── <month>/
+│       ├── <variable 1>/
+│       ├── <variable 2>/
+│       ├── <variable 3>/
+│       └── ...
+└── <year>/
+
+Example
+processed/
+├── 1960/
+│   └── 01/
+│       ├── 2d/
+│       ├── 2t/
+│       ├── 10u/
+│       └── ...
+└── 1961/
+
+required arguments:
+  --input INPUT          Input directory containing ERA5 data files
+  --output OUTPUT        Output file path (.csv or .parquet)
+
+optional arguments:
+--year YEAR: Specific year to process (e.g., "1960")
+--month MONTH: Specific month to process (e.g., "01")
+--exclude-vars VARS [VARS ...]: Variables to exclude from processing
+--include-vars VARS [VARS ...]: Only include these specific variables (if specified, --exclude-vars is ignored)
+--chunk-size CHUNK_SIZE: Number of rows to process at once (default: 100000)
+--max-memory-rows MAX_MEMORY_ROWS: Maximum rows to hold in memory before writing to disk (default: 1000000)
+
+# Default excluded variables
+['10fg', 'cbh', 'cin', 'cp', 'i10fg', 'lsp', 'tp', 'vimd']
+
+# Basic usage - process all available variables except the default excluded ones
+python era5-data-joiner.py --input /path/to/era5/data --output joined_data.csv
+
+# Process specific year and month
+python era5-data-joiner.py --input /path/to/era5/data --output joined_data.parquet --year 2023 --month 01
+
+# Include only specific variables
+python era5-data-joiner.py --input /path/to/era5/data --output joined_data.csv --include-vars 2t 10u 10v sp
+
+# Exclude specific variables (overriding the default exclusion list)
+python era5-data-joiner.py --input /path/to/era5/data --output joined_data.csv --exclude-vars vimd tp
+
+# Recommended Usage for Low-Memory Environment (WSL ~1GB RAM)
+# Based on successful testing, the following settings are recommended for your WSL environment:
+python era5-data-joiner-compatible.py --input processed --year 1960 --month 01 --output processed/joined_data_1960/joined_196001.parquet --max-memory-rows 30000 --chunk-size 10000
+Common Usage Examples
+
+# Process a specific year and month with default settings:
+python era5-data-joiner-compatible.py --input processed --year 1960 --month 01 --output processed/joined_data_1960/joined_196001.parquet
+
+# Include only specific variables:
+python era5-data-joiner-compatible.py --input processed --year 1960 --month 01 --output processed/joined_data_1960/wind_temp_196001.parquet --include-vars 2t 10u 10v sp
+
+# Exclude specific variables beyond the defaults:
+python era5-data-joiner-compatible.py --input processed --year 1960 --month 01 --output processed/joined_data_1960/joined_196001.parquet --exclude-vars 10fg cbh cin cp i10fg lsp tp vimd vit vitoe
+
+# Extreme low memory settings:
+python era5-data-joiner-compatible.py --input processed --year 1960 --month 01 --output processed/joined_data_1960/joined_196001.parquet --max-memory-rows 10000 --chunk-size 2000
+
+
+# Tips for Best Performance
+
+Output Format: Use .parquet extension for the output file to get better compression and faster processing for later use
+Memory Management: If you experience "Killed" errors due to memory exhaustion:
+
+Decrease --max-memory-rows (try 20000 or 10000)
+Decrease --chunk-size (try 5000 or 2000)
+Process fewer variables at once using --include-vars
+
+
+Processing Time: The script will take longer with lower memory settings, but will be more stable
+Starting Small: If you're unsure about memory usage, start with a small subset of variables:
+bashpython era5-data-joiner-compatible.py --input processed --year 1960 --month 01 --output test_output.parquet --include-vars 2t 10u --max-memory-rows 20000 --chunk-size 5000
+
+Monitoring: You can monitor memory usage while the script runs using:
+bashwatch -n 2 free -h
+
+How the Script Works
+The script follows these steps:
+
+Scans the directory structure to find all CSV files
+Groups files by variable (based on directory structure)
+Analyzes the structure of each variable's data
+Identifies the proper column names for joining (handles different naming conventions)
+Processes each variable's files, extracting the relevant data
+Joins all data based on time, latitude, and longitude
+Saves the result as a single CSV or Parquet file
+
+Key Features
+
+Memory Efficient: Processes data in chunks to handle large datasets
+Flexible Column Names: Automatically detects variations in coordinate column names
+Variable Selection: Can include or exclude specific variables
+Year/Month Filtering: Can focus on data from specific time periods
+Progress Reporting: Logs progress during the joining operation
+Automatic Exclusion: By default, excludes the variables you mentioned (10fg, cbh, cin, cp, i10fg, lsp, tp, vimd)
+
+==========================================CHRONOLOGICAL SORTER===============================================
+
+Key Features
+
+Handles Both Formats: Works with both CSV and Parquet files
+Memory Efficient: Processes files in chunks to minimize memory usage
+Optional Backups: Can create backups of original files before sorting
+Parallel Processing: Can sort multiple files simultaneously (optional)
+Detailed Logging: Provides comprehensive logs of all operations
+
+Usage Example
+bashpython era5-chronological-sorter.py --input-dir /path/to/joined_data_1960 --backup
+Command-Line Options
+Required Arguments
+
+--input-dir: Directory containing the joined files to be sorted
+
+Optional Arguments
+
+--pattern: File pattern to match (default: "joined_*.{csv,parquet}")
+--chunk-size: Chunk size for reading CSV files (default: 100000)
+--max-memory-rows: Maximum rows to hold in memory (default: 500000)
+--backup: Create backups of files before sorting
+--max-workers: Maximum number of files to process in parallel (default: 1)
+--log-dir: Directory for logs (default: input_dir/logs)
+
+# command I used to sort all 12 1960 files (took about 5 min) - creates a backup which takes up space but can be deleted after
+python3 scripts/era5-chronological-sorter.py   --input-dir processed/joined_data_1960/joined/1960   --chunk-size 30000   --max-memory-rows 100000   --backup   --max-workers 1

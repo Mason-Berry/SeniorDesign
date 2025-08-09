@@ -1,0 +1,101 @@
+name: ERA5 Download and Full Processing Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Year to fetch (YYYY)'
+        required: true
+      month:
+        description: 'Month to fetch (MM)'
+        required: true
+      days:
+        description: 'Days to fetch (comma-separated, e.g. 01,02,03). Leave blank for full month.'
+        required: false
+
+jobs:
+  era5-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install system dependencies (ecCodes for cfgrib)
+      run: sudo apt-get update && sudo apt-get install -y libeccodes0 libeccodes-data
+
+    - name: Install Python dependencies
+      run: pip install cdsapi numpy pandas xarray cfgrib
+
+    - name: Create .cdsapirc file from secrets
+      run: |
+        echo "url: https://cds.climate.copernicus.eu/api" > ~/.cdsapirc
+        echo "key: ${{ secrets.CDS_API_KEY }}" >> ~/.cdsapirc
+        export CDSAPI_RC=~/.cdsapirc
+
+    - name: Print contents of .cdsapirc
+      run: cat ~/.cdsapirc
+
+    - name: Download ERA5 GRIB
+      run: |
+        mkdir -p temp_data
+        export CDSAPI_RC=~/.cdsapirc
+        if [ -z "${{ github.event.inputs.days }}" ]; then
+          echo "No days provided, downloading full month."
+          python scripts/get_data3.py \
+            --cdsapirc ~/.cdsapirc \
+            --year ${{ github.event.inputs.year }} \
+            --month ${{ github.event.inputs.month }} \
+            --output_dir temp_data
+        else
+          echo "Days provided: ${{ github.event.inputs.days }}"
+          python scripts/get_data3.py \
+            --cdsapirc ~/.cdsapirc \
+            --year ${{ github.event.inputs.year }} \
+            --month ${{ github.event.inputs.month }} \
+            --days ${{ github.event.inputs.days }} \
+            --output_dir temp_data
+        fi
+
+    - name: Run full processing pipeline
+      run: |
+        mkdir -p pipeline_output
+        python scripts/era5-processing-pipeline2.py \
+          --grib-dir temp_data \
+          --output-dir pipeline_output \
+          --converter-script scripts/era5-organized-converter.py \
+          --joiner-script scripts/era5-data-joiner.py \
+          --start-year ${{ github.event.inputs.year }} \
+          --end-year ${{ github.event.inputs.year }} \
+          --max-workers 1 \
+          --sort-chronologically \
+          --output-format csv
+          
+
+    - name: Authenticate with GCP
+      run: |
+        gcloud auth activate-service-account --key-file=scripts/gha-service-account.json
+        gcloud config set project argon-edge-455015-q8
+
+
+    - name: Check Auth Identity
+      run: |
+        gcloud auth list
+        gcloud config list project
+
+
+    - name: Test access to bucket
+      run: |
+        gsutil ls -p argon-edge-455015-q8 gs://forecasttx-era5-data-bucket/
+
+        
+    - name: Upload all processed files to GCS
+      run: bash scripts/upload
+
+    - name: Clean up temp data
+      run: rm -rf temp_data/ pipeline_output/

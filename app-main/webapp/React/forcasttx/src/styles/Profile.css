@@ -1,0 +1,48 @@
+.profile-container {
+  position: absolute; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1001;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: red;
+}
+
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-email {
+  margin-right: 16px;
+}

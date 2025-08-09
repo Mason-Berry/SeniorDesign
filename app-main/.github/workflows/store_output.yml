@@ -1,0 +1,12 @@
+# .github/workflows/store_output.yml
+on:
+  workflow_call:
+
+jobs:
+  upload_model:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy from VM to GCS
+        run: |
+          gcloud compute scp my-vm:~/ml_project/output_model.pkl .
+          gsutil cp output_model.pkl gs://your-bucket-name/models/

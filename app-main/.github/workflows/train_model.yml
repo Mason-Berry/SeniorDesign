@@ -1,0 +1,18 @@
+# .github/workflows/train_model.yml
+on:
+  workflow_call:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and Run Training
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd ~/ml_project/
+            source activate mlenv
+            python train_model.py --input gs://your-bucket-name/inputs/output.parquet

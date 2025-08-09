@@ -1,0 +1,33 @@
+# .github/workflows/fetch_data.yml
+on:
+  workflow_call:
+    inputs:
+      variable: { required: true, type: string }
+      start_date: { required: true, type: string }
+      end_date: { required: true, type: string }
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Fetch Script
+        run: |
+          python fetch_data.py \
+            --variable ${{ inputs.variable }} \
+            --start ${{ inputs.start_date }} \
+            --end ${{ inputs.end_date }}
+
+      - name: Upload to GCS
+        run: |
+          gsutil cp data/output.parquet gs://your-bucket-name/inputs/
