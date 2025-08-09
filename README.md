@@ -1,112 +1,124 @@
-# ForecastTX - Weather Forecasting Platform
+# ForecastTX – Weather Forecasting Platform
 
-## Portfolio Project Overview
-
-This repository contains **ForecastTX**, a comprehensive weather forecasting and analysis platform that was developed as a senior capstone project for computer science students at The University of Texas at Dallas. The system combines machine learning, data processing, and web development to create an interactive weather prediction dashboard focused on severe weather events in Texas.
-
-**⚠️ Important Disclaimer**: This repository represents a collaborative team project. While I contributed significantly to various components of the system, I am not the sole author of all code contained within this repository. This project is included in my portfolio to demonstrate my experience with large-scale software development, team collaboration, and full-stack development practices.
-
-## My Contributions
-
-As part of the development team, my primary responsibilities focused on **data acquisition, transformation, storage in Google Cloud, and preparation for model training**. My specific contributions included:
-
-- **Data Processing Pipeline**: Development and optimization of Python scripts for processing ERA5 weather data
-- **Data Acquisition & Transformation**: Implementation of automated systems for acquiring, cleaning, and transforming raw weather data
-- **Cloud Infrastructure**: Google Cloud Platform integration and deployment configuration
-- **Comprehensive Documentation**: Generation and review of project documentation
-
-## Project Purpose & Technical Scope
-
-ForecastTX demonstrates enterprise-level software development practices across multiple domains:
-
-### Technical Architecture
-- **Data Engineering**: Automated processing of 70+ years of ERA5 climate reanalysis data
-- **Machine Learning**: Deep learning models (ConvLSTM) for spatiotemporal weather prediction
-- **Full-Stack Development**: React frontend with FastAPI backend services
-- **Cloud Computing**: GCP integration with scalable storage and compute resources
-- **DevOps**: Automated deployment pipelines and infrastructure management
-
-### System Components
-1. **Data Processing Pipeline** (`/scripts/`): Python-based ETL pipeline processing GRIB weather data
-2. **Machine Learning Models** (`/model/`): TensorFlow/Keras models for weather forecasting
-3. **Web Application** (`/webapp/React/`): Interactive React dashboard with real-time visualizations
-4. **Backend API** (`/VMfiles/`): FastAPI server providing RESTful endpoints for data access
-5. **Cloud Infrastructure**: GCP-hosted services with Firebase authentication
-
-## Technology Stack
-
-**Backend & Data Processing:**
-- Python (pandas, numpy, xarray, tensorflow)
-- FastAPI for REST API services
-- Google Cloud Platform (Storage, Compute Engine)
-- ERA5 climate data processing (GRIB format)
-
-**Frontend & Web Development:**
-- React 19 with modern hooks
-- Chart.js and D3.js for data visualization
-- Leaflet maps for geospatial display
-- Firebase authentication and hosting
-
-**Machine Learning & Analytics:**
-- TensorFlow/Keras for deep learning
-- ConvLSTM networks for spatiotemporal prediction
-- Linear regression for statistical analysis
-- GPU-optimized training on cloud instances
-
-## Portfolio Relevance
-
-This project showcases several key competencies valuable in professional software development:
-
-- **Large-Scale Data Processing**: Handling and processing terabytes of climate data
-- **Machine Learning Engineering**: Production-ready ML model development and deployment
-- **Full-Stack Development**: End-to-end application development from data to user interface
-- **Cloud Architecture**: Scalable cloud-native application design
-- **Team Collaboration**: Working effectively in a multi-developer environment
-- **Technical Documentation**: Comprehensive system documentation and user guides
-
-## Academic Context
-
-**Institution**: The University of Texas at Arlington  
-**Course**: Senior Capstone Project  
-**Duration**: Academic Year 2024-2025  
-**Team Size**: 5 students  
-**Industry Partner**: State Farm Insurance (project sponsor)
-
-The project was developed in collaboration with State Farm to explore applications of machine learning in weather risk assessment and prediction.
-
-## Repository Structure
-
-```
-├── app-main/
-│   ├── scripts/          # Data processing pipeline
-│   ├── model/           # Machine learning models
-│   ├── webapp/React/    # Frontend application
-│   ├── VMfiles/         # Backend API server
-│   └── docs/            # Comprehensive documentation
-```
-
-## Documentation
-
-The `/app-main/docs/` directory contains extensive documentation covering:
-- System architecture and design decisions
-- Setup and deployment instructions
-- API documentation and usage examples
-- Machine learning model specifications
-
-For detailed technical information, see [`app-main/docs/project-overview.md`](app-main/docs/project-overview.md).
-
-## Academic and Professional Use
-
-This repository serves as a portfolio piece demonstrating:
-- **Software Engineering**: Large-scale application architecture and development
-- **Data Science**: Real-world application of ML to climate/weather data
-- **Cloud Computing**: Production deployment of scalable web applications
-- **Team Development**: Collaborative software development practices
-
-## Additional Resources
-
-For more information about this project, including a demo video and additional technical details, visit the [official school blog post](https://websites.uta.edu/cseseniordesign/2025/08/04/forecast-tx/).
+## 📑 Table of Contents
+- [Overview](#overview)
+- [⚠️ Collaboration & Disclaimer](#️-collaboration--disclaimer)
+- [📌 My Contributions](#-my-contributions)
+- [Project Purpose & Scope](#project-purpose--scope)
+- [🛠 Technology Stack](#-technology-stack)
+- [🎯 Portfolio Relevance](#-portfolio-relevance)
+- [🎓 Academic Context](#-academic-context)
+- [📂 Repository Structure](#-repository-structure)
+- [📄 Documentation](#-documentation)
+- [📺 Additional Resources](#-additional-resources)
 
 ---
 
-*This project represents collaborative academic work and demonstrates technical competencies developed through hands-on experience with industry-relevant technologies and development practices.*
+## Overview
+
+**ForecastTX** is a collaborative senior capstone project developed at The University of Texas at Arlington. The system integrates **machine learning**, **data engineering**, and **full-stack web development** to create an interactive dashboard for severe weather prediction in Texas.  
+
+This project is included in my portfolio as a case study in **large-scale software development**, **team collaboration**, and **end-to-end delivery of cloud-based applications**.
+
+---
+
+## ⚠️ Collaboration & Disclaimer
+
+This repository contains **team-developed academic work**. While I made substantial contributions, I am **not** the sole author of all code contained here.
+
+- My specific work is detailed in the [My Contributions](#my-contributions) section below.
+- No **State Farm proprietary data**, source code, or confidential business logic is included.
+- All sensitive credentials have been removed; any datasets used are publicly available.
+- State Farm served as the **project sponsor**, providing product requirements and feedback during weekly presentations, but did not contribute code or proprietary assets.
+
+---
+
+## 📌 My Contributions
+
+As part of a 5-member team, my primary responsibilities included:
+
+- **Data Processing Pipeline** – Developed and optimized Python scripts for processing ERA5 weather data.
+- **Data Acquisition & Transformation** – Implemented automated retrieval, cleaning, and transformation of raw weather data.
+- **Cloud Infrastructure** – Configured and deployed Google Cloud Platform services (storage, compute).
+- **Comprehensive Documentation** – Authored and reviewed technical and project documentation.
+
+---
+
+## Project Purpose & Scope
+
+ForecastTX demonstrates enterprise-level development practices across multiple domains:
+
+### **Technical Architecture**
+- **Data Engineering** – Automated processing of 70+ years of ERA5 reanalysis climate data.
+- **Machine Learning** – ConvLSTM deep learning models for spatiotemporal weather prediction.
+- **Full-Stack Development** – React frontend, FastAPI backend.
+- **Cloud Computing** – GCP-hosted services with scalable storage and compute resources.
+- **DevOps** – Automated deployment pipelines and infrastructure configuration.
+
+### **System Components**
+1. **Data Processing Pipeline** (`/scripts/`) – Python-based ETL pipeline for GRIB weather data.
+2. **Machine Learning Models** (`/model/`) – TensorFlow/Keras models for severe weather forecasting.
+3. **Web Application** (`/webapp/React/`) – Interactive dashboard with real-time visualizations.
+4. **Backend API** (`/VMfiles/`) – FastAPI server with REST endpoints for frontend access.
+5. **Cloud Infrastructure** – Hosted on Google Cloud; Firebase for authentication & hosting.
+
+---
+
+## 🛠 Technology Stack
+
+**Backend & Data Processing:**
+- Python (`pandas`, `numpy`, `xarray`, `tensorflow`)
+- FastAPI for REST APIs
+- Google Cloud Platform (Storage, Compute Engine)
+- ERA5 climate data (GRIB format)
+
+**Frontend & Visualization:**
+- React 19 with hooks
+- Chart.js and D3.js for visualizations
+- Leaflet for geospatial mapping
+- Firebase authentication and hosting
+
+**Machine Learning:**
+- TensorFlow/Keras
+- ConvLSTM networks for spatiotemporal modeling
+- Linear regression for statistical analysis
+- GPU-optimized cloud training
+
+---
+
+## 🎯 Portfolio Relevance
+
+This project highlights:
+- **Large-Scale Data Processing** – Managing and transforming terabytes of climate data.
+- **ML Engineering** – Building and deploying production-ready ML models.
+- **Full-Stack Web Development** – End-to-end application delivery.
+- **Cloud Architecture** – Designing scalable cloud-native solutions.
+- **Team Collaboration** – Working in a multi-developer environment.
+- **Technical Documentation** – Producing thorough, structured documentation.
+
+---
+
+## 🎓 Academic Context
+
+| Attribute         | Details |
+|-------------------|---------|
+| **Institution**   | The University of Texas at Arlington |
+| **Course**        | Senior Capstone Project |
+| **Academic Year** | 2024–2025 |
+| **Team Size**     | 5 students |
+| **Sponsor**       | State Farm Insurance |
+
+The project was sponsored by **State Farm** to explore the application of machine learning to weather risk assessment and prediction.
+
+---
+
+## 📂 Repository Structure
+
+├── app-main/
+│ ├── scripts/ # Data processing pipeline
+│ ├── model/ # Machine learning models
+│ ├── webapp/React/ # Frontend dashboard
+│ ├── VMfiles/ # Backend API server
+│ └── docs/ # Documentation
+
+---
