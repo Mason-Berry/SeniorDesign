@@ -18,8 +18,6 @@
 
 **ForecastTX** is a collaborative senior capstone project developed at The University of Texas at Arlington. The system integrates **machine learning**, **data engineering**, and **full-stack web development** to create an interactive dashboard for severe weather prediction in Texas.  
 
-This project is included in my portfolio as a case study in **large-scale software development**, **team collaboration**, and **end-to-end delivery of cloud-based applications**.
-
 ---
 
 ## ⚠️ Collaboration & Disclaimer
